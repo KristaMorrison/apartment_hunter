@@ -1,4 +1,4 @@
-<p id="notice"><%= notice %></p>
+
 
 <h1>Listing Apartments</h1>
 
@@ -21,8 +21,10 @@
         <td><%= apartment.name %></td>
         <td><%= apartment.contact %></td>
         <td><%= link_to 'Show', apartment %></td>
-        <td><%= link_to 'Edit', edit_apartment_path(apartment) %></td>
-        <td><%= link_to 'Destroy', apartment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% if apartment.user == current_user && user_signed_in?%>
+          <td><%= link_to 'Edit', edit_apartment_path(apartment) %></td>
+          <td><%= link_to 'Destroy', apartment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>
