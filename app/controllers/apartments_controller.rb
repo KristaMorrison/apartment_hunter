@@ -21,7 +21,8 @@ class ApartmentsController < ApplicationController
 
   # GET /apartments/new
   def new
-    @apartment = Apartment.new
+    #only allows a logged in user to add a new apartment listing
+    @apartment = current_user.apartments.build
   end
 
   # GET /apartments/1/edit
@@ -31,7 +32,8 @@ class ApartmentsController < ApplicationController
   # POST /apartments
   # POST /apartments.json
   def create
-    @apartment = Apartment.new(apartment_params)
+    #only allows a logged in user to post a new apartment
+    @apartment = current_user.apartments.build(apartment_params)
 
     respond_to do |format|
       if @apartment.save
@@ -76,6 +78,6 @@ class ApartmentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def apartment_params
-      params.require(:apartment).permit(:latitude, :longitude, :address, :name, :contact, :image, :imagetwo)
+      params.require(:apartment).permit(:latitude, :longitude, :address, :name, :contact, :image)
     end
 end
